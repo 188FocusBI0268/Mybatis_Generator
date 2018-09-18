@@ -1,0 +1,638 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.suibao.ssm.mapper.GoodsMapper" >
+  <resultMap id="BaseResultMap" type="cn.suibao.ssm.po.Goods" >
+    <id column="fGoodsID" property="fgoodsid" jdbcType="INTEGER" />
+    <result column="fGoodsCode" property="fgoodscode" jdbcType="VARCHAR" />
+    <result column="fGoodsName" property="fgoodsname" jdbcType="NVARCHAR" />
+    <result column="fGoodsTypeID" property="fgoodstypeid" jdbcType="NVARCHAR" />
+    <result column="fGoodsType" property="fgoodstype" jdbcType="NVARCHAR" />
+    <result column="fBrandCode" property="fbrandcode" jdbcType="VARCHAR" />
+    <result column="fBrandName" property="fbrandname" jdbcType="NVARCHAR" />
+    <result column="fSortCode" property="fsortcode" jdbcType="VARCHAR" />
+    <result column="fSortName" property="fsortname" jdbcType="NVARCHAR" />
+    <result column="fGrpCode" property="fgrpcode" jdbcType="VARCHAR" />
+    <result column="fGrpName" property="fgrpname" jdbcType="NVARCHAR" />
+    <result column="fKitCode" property="fkitcode" jdbcType="VARCHAR" />
+    <result column="fKitName" property="fkitname" jdbcType="NVARCHAR" />
+    <result column="fStyleCode" property="fstylecode" jdbcType="VARCHAR" />
+    <result column="fStyleName" property="fstylename" jdbcType="NVARCHAR" />
+    <result column="fClrCode" property="fclrcode" jdbcType="VARCHAR" />
+    <result column="fClrName" property="fclrname" jdbcType="NVARCHAR" />
+    <result column="fRmQltCode" property="frmqltcode" jdbcType="VARCHAR" />
+    <result column="fRmQltName" property="frmqltname" jdbcType="NVARCHAR" />
+    <result column="fDesignCode" property="fdesigncode" jdbcType="NVARCHAR" />
+    <result column="fDesignName" property="fdesignname" jdbcType="NVARCHAR" />
+    <result column="fDevPropertyCode" property="fdevpropertycode" jdbcType="NVARCHAR" />
+    <result column="fDevPropertyName" property="fdevpropertyname" jdbcType="NVARCHAR" />
+    <result column="fFgTypeCode" property="ffgtypecode" jdbcType="NVARCHAR" />
+    <result column="fFgTypeName" property="ffgtypename" jdbcType="NVARCHAR" />
+    <result column="fSellFrequencyCode" property="fsellfrequencycode" jdbcType="NVARCHAR" />
+    <result column="fSellFrequencyName" property="fsellfrequencyname" jdbcType="NVARCHAR" />
+    <result column="fSaleTypeCode" property="fsaletypecode" jdbcType="NVARCHAR" />
+    <result column="fSaleTypeName" property="fsaletypename" jdbcType="NVARCHAR" />
+    <result column="fMkCode" property="fmkcode" jdbcType="NVARCHAR" />
+    <result column="ClothCode" property="clothcode" jdbcType="NVARCHAR" />
+    <result column="ClothName" property="clothname" jdbcType="NVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    fGoodsID, fGoodsCode, fGoodsName, fGoodsTypeID, fGoodsType, fBrandCode, fBrandName, 
+    fSortCode, fSortName, fGrpCode, fGrpName, fKitCode, fKitName, fStyleCode, fStyleName, 
+    fClrCode, fClrName, fRmQltCode, fRmQltName, fDesignCode, fDesignName, fDevPropertyCode, 
+    fDevPropertyName, fFgTypeCode, fFgTypeName, fSellFrequencyCode, fSellFrequencyName, 
+    fSaleTypeCode, fSaleTypeName, fMkCode, ClothCode, ClothName
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.suibao.ssm.po.GoodsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from Dim_Goods
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from Dim_Goods
+    where fGoodsID = #{fgoodsid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from Dim_Goods
+    where fGoodsID = #{fgoodsid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.suibao.ssm.po.GoodsExample" >
+    delete from Dim_Goods
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.suibao.ssm.po.Goods" >
+    insert into Dim_Goods (fGoodsID, fGoodsCode, fGoodsName, 
+      fGoodsTypeID, fGoodsType, fBrandCode, 
+      fBrandName, fSortCode, fSortName, 
+      fGrpCode, fGrpName, fKitCode, 
+      fKitName, fStyleCode, fStyleName, 
+      fClrCode, fClrName, fRmQltCode, 
+      fRmQltName, fDesignCode, fDesignName, 
+      fDevPropertyCode, fDevPropertyName, fFgTypeCode, 
+      fFgTypeName, fSellFrequencyCode, fSellFrequencyName, 
+      fSaleTypeCode, fSaleTypeName, fMkCode, 
+      ClothCode, ClothName)
+    values (#{fgoodsid,jdbcType=INTEGER}, #{fgoodscode,jdbcType=VARCHAR}, #{fgoodsname,jdbcType=NVARCHAR}, 
+      #{fgoodstypeid,jdbcType=NVARCHAR}, #{fgoodstype,jdbcType=NVARCHAR}, #{fbrandcode,jdbcType=VARCHAR}, 
+      #{fbrandname,jdbcType=NVARCHAR}, #{fsortcode,jdbcType=VARCHAR}, #{fsortname,jdbcType=NVARCHAR}, 
+      #{fgrpcode,jdbcType=VARCHAR}, #{fgrpname,jdbcType=NVARCHAR}, #{fkitcode,jdbcType=VARCHAR}, 
+      #{fkitname,jdbcType=NVARCHAR}, #{fstylecode,jdbcType=VARCHAR}, #{fstylename,jdbcType=NVARCHAR}, 
+      #{fclrcode,jdbcType=VARCHAR}, #{fclrname,jdbcType=NVARCHAR}, #{frmqltcode,jdbcType=VARCHAR}, 
+      #{frmqltname,jdbcType=NVARCHAR}, #{fdesigncode,jdbcType=NVARCHAR}, #{fdesignname,jdbcType=NVARCHAR}, 
+      #{fdevpropertycode,jdbcType=NVARCHAR}, #{fdevpropertyname,jdbcType=NVARCHAR}, #{ffgtypecode,jdbcType=NVARCHAR}, 
+      #{ffgtypename,jdbcType=NVARCHAR}, #{fsellfrequencycode,jdbcType=NVARCHAR}, #{fsellfrequencyname,jdbcType=NVARCHAR}, 
+      #{fsaletypecode,jdbcType=NVARCHAR}, #{fsaletypename,jdbcType=NVARCHAR}, #{fmkcode,jdbcType=NVARCHAR}, 
+      #{clothcode,jdbcType=NVARCHAR}, #{clothname,jdbcType=NVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.suibao.ssm.po.Goods" >
+    insert into Dim_Goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fgoodsid != null" >
+        fGoodsID,
+      </if>
+      <if test="fgoodscode != null" >
+        fGoodsCode,
+      </if>
+      <if test="fgoodsname != null" >
+        fGoodsName,
+      </if>
+      <if test="fgoodstypeid != null" >
+        fGoodsTypeID,
+      </if>
+      <if test="fgoodstype != null" >
+        fGoodsType,
+      </if>
+      <if test="fbrandcode != null" >
+        fBrandCode,
+      </if>
+      <if test="fbrandname != null" >
+        fBrandName,
+      </if>
+      <if test="fsortcode != null" >
+        fSortCode,
+      </if>
+      <if test="fsortname != null" >
+        fSortName,
+      </if>
+      <if test="fgrpcode != null" >
+        fGrpCode,
+      </if>
+      <if test="fgrpname != null" >
+        fGrpName,
+      </if>
+      <if test="fkitcode != null" >
+        fKitCode,
+      </if>
+      <if test="fkitname != null" >
+        fKitName,
+      </if>
+      <if test="fstylecode != null" >
+        fStyleCode,
+      </if>
+      <if test="fstylename != null" >
+        fStyleName,
+      </if>
+      <if test="fclrcode != null" >
+        fClrCode,
+      </if>
+      <if test="fclrname != null" >
+        fClrName,
+      </if>
+      <if test="frmqltcode != null" >
+        fRmQltCode,
+      </if>
+      <if test="frmqltname != null" >
+        fRmQltName,
+      </if>
+      <if test="fdesigncode != null" >
+        fDesignCode,
+      </if>
+      <if test="fdesignname != null" >
+        fDesignName,
+      </if>
+      <if test="fdevpropertycode != null" >
+        fDevPropertyCode,
+      </if>
+      <if test="fdevpropertyname != null" >
+        fDevPropertyName,
+      </if>
+      <if test="ffgtypecode != null" >
+        fFgTypeCode,
+      </if>
+      <if test="ffgtypename != null" >
+        fFgTypeName,
+      </if>
+      <if test="fsellfrequencycode != null" >
+        fSellFrequencyCode,
+      </if>
+      <if test="fsellfrequencyname != null" >
+        fSellFrequencyName,
+      </if>
+      <if test="fsaletypecode != null" >
+        fSaleTypeCode,
+      </if>
+      <if test="fsaletypename != null" >
+        fSaleTypeName,
+      </if>
+      <if test="fmkcode != null" >
+        fMkCode,
+      </if>
+      <if test="clothcode != null" >
+        ClothCode,
+      </if>
+      <if test="clothname != null" >
+        ClothName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fgoodsid != null" >
+        #{fgoodsid,jdbcType=INTEGER},
+      </if>
+      <if test="fgoodscode != null" >
+        #{fgoodscode,jdbcType=VARCHAR},
+      </if>
+      <if test="fgoodsname != null" >
+        #{fgoodsname,jdbcType=NVARCHAR},
+      </if>
+      <if test="fgoodstypeid != null" >
+        #{fgoodstypeid,jdbcType=NVARCHAR},
+      </if>
+      <if test="fgoodstype != null" >
+        #{fgoodstype,jdbcType=NVARCHAR},
+      </if>
+      <if test="fbrandcode != null" >
+        #{fbrandcode,jdbcType=VARCHAR},
+      </if>
+      <if test="fbrandname != null" >
+        #{fbrandname,jdbcType=NVARCHAR},
+      </if>
+      <if test="fsortcode != null" >
+        #{fsortcode,jdbcType=VARCHAR},
+      </if>
+      <if test="fsortname != null" >
+        #{fsortname,jdbcType=NVARCHAR},
+      </if>
+      <if test="fgrpcode != null" >
+        #{fgrpcode,jdbcType=VARCHAR},
+      </if>
+      <if test="fgrpname != null" >
+        #{fgrpname,jdbcType=NVARCHAR},
+      </if>
+      <if test="fkitcode != null" >
+        #{fkitcode,jdbcType=VARCHAR},
+      </if>
+      <if test="fkitname != null" >
+        #{fkitname,jdbcType=NVARCHAR},
+      </if>
+      <if test="fstylecode != null" >
+        #{fstylecode,jdbcType=VARCHAR},
+      </if>
+      <if test="fstylename != null" >
+        #{fstylename,jdbcType=NVARCHAR},
+      </if>
+      <if test="fclrcode != null" >
+        #{fclrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="fclrname != null" >
+        #{fclrname,jdbcType=NVARCHAR},
+      </if>
+      <if test="frmqltcode != null" >
+        #{frmqltcode,jdbcType=VARCHAR},
+      </if>
+      <if test="frmqltname != null" >
+        #{frmqltname,jdbcType=NVARCHAR},
+      </if>
+      <if test="fdesigncode != null" >
+        #{fdesigncode,jdbcType=NVARCHAR},
+      </if>
+      <if test="fdesignname != null" >
+        #{fdesignname,jdbcType=NVARCHAR},
+      </if>
+      <if test="fdevpropertycode != null" >
+        #{fdevpropertycode,jdbcType=NVARCHAR},
+      </if>
+      <if test="fdevpropertyname != null" >
+        #{fdevpropertyname,jdbcType=NVARCHAR},
+      </if>
+      <if test="ffgtypecode != null" >
+        #{ffgtypecode,jdbcType=NVARCHAR},
+      </if>
+      <if test="ffgtypename != null" >
+        #{ffgtypename,jdbcType=NVARCHAR},
+      </if>
+      <if test="fsellfrequencycode != null" >
+        #{fsellfrequencycode,jdbcType=NVARCHAR},
+      </if>
+      <if test="fsellfrequencyname != null" >
+        #{fsellfrequencyname,jdbcType=NVARCHAR},
+      </if>
+      <if test="fsaletypecode != null" >
+        #{fsaletypecode,jdbcType=NVARCHAR},
+      </if>
+      <if test="fsaletypename != null" >
+        #{fsaletypename,jdbcType=NVARCHAR},
+      </if>
+      <if test="fmkcode != null" >
+        #{fmkcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="clothcode != null" >
+        #{clothcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="clothname != null" >
+        #{clothname,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.suibao.ssm.po.GoodsExample" resultType="java.lang.Integer" >
+    select count(*) from Dim_Goods
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update Dim_Goods
+    <set >
+      <if test="record.fgoodsid != null" >
+        fGoodsID = #{record.fgoodsid,jdbcType=INTEGER},
+      </if>
+      <if test="record.fgoodscode != null" >
+        fGoodsCode = #{record.fgoodscode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fgoodsname != null" >
+        fGoodsName = #{record.fgoodsname,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.fgoodstypeid != null" >
+        fGoodsTypeID = #{record.fgoodstypeid,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.fgoodstype != null" >
+        fGoodsType = #{record.fgoodstype,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.fbrandcode != null" >
+        fBrandCode = #{record.fbrandcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fbrandname != null" >
+        fBrandName = #{record.fbrandname,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.fsortcode != null" >
+        fSortCode = #{record.fsortcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fsortname != null" >
+        fSortName = #{record.fsortname,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.fgrpcode != null" >
+        fGrpCode = #{record.fgrpcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fgrpname != null" >
+        fGrpName = #{record.fgrpname,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.fkitcode != null" >
+        fKitCode = #{record.fkitcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fkitname != null" >
+        fKitName = #{record.fkitname,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.fstylecode != null" >
+        fStyleCode = #{record.fstylecode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fstylename != null" >
+        fStyleName = #{record.fstylename,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.fclrcode != null" >
+        fClrCode = #{record.fclrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fclrname != null" >
+        fClrName = #{record.fclrname,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.frmqltcode != null" >
+        fRmQltCode = #{record.frmqltcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.frmqltname != null" >
+        fRmQltName = #{record.frmqltname,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.fdesigncode != null" >
+        fDesignCode = #{record.fdesigncode,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.fdesignname != null" >
+        fDesignName = #{record.fdesignname,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.fdevpropertycode != null" >
+        fDevPropertyCode = #{record.fdevpropertycode,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.fdevpropertyname != null" >
+        fDevPropertyName = #{record.fdevpropertyname,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.ffgtypecode != null" >
+        fFgTypeCode = #{record.ffgtypecode,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.ffgtypename != null" >
+        fFgTypeName = #{record.ffgtypename,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.fsellfrequencycode != null" >
+        fSellFrequencyCode = #{record.fsellfrequencycode,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.fsellfrequencyname != null" >
+        fSellFrequencyName = #{record.fsellfrequencyname,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.fsaletypecode != null" >
+        fSaleTypeCode = #{record.fsaletypecode,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.fsaletypename != null" >
+        fSaleTypeName = #{record.fsaletypename,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.fmkcode != null" >
+        fMkCode = #{record.fmkcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.clothcode != null" >
+        ClothCode = #{record.clothcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.clothname != null" >
+        ClothName = #{record.clothname,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update Dim_Goods
+    set fGoodsID = #{record.fgoodsid,jdbcType=INTEGER},
+      fGoodsCode = #{record.fgoodscode,jdbcType=VARCHAR},
+      fGoodsName = #{record.fgoodsname,jdbcType=NVARCHAR},
+      fGoodsTypeID = #{record.fgoodstypeid,jdbcType=NVARCHAR},
+      fGoodsType = #{record.fgoodstype,jdbcType=NVARCHAR},
+      fBrandCode = #{record.fbrandcode,jdbcType=VARCHAR},
+      fBrandName = #{record.fbrandname,jdbcType=NVARCHAR},
+      fSortCode = #{record.fsortcode,jdbcType=VARCHAR},
+      fSortName = #{record.fsortname,jdbcType=NVARCHAR},
+      fGrpCode = #{record.fgrpcode,jdbcType=VARCHAR},
+      fGrpName = #{record.fgrpname,jdbcType=NVARCHAR},
+      fKitCode = #{record.fkitcode,jdbcType=VARCHAR},
+      fKitName = #{record.fkitname,jdbcType=NVARCHAR},
+      fStyleCode = #{record.fstylecode,jdbcType=VARCHAR},
+      fStyleName = #{record.fstylename,jdbcType=NVARCHAR},
+      fClrCode = #{record.fclrcode,jdbcType=VARCHAR},
+      fClrName = #{record.fclrname,jdbcType=NVARCHAR},
+      fRmQltCode = #{record.frmqltcode,jdbcType=VARCHAR},
+      fRmQltName = #{record.frmqltname,jdbcType=NVARCHAR},
+      fDesignCode = #{record.fdesigncode,jdbcType=NVARCHAR},
+      fDesignName = #{record.fdesignname,jdbcType=NVARCHAR},
+      fDevPropertyCode = #{record.fdevpropertycode,jdbcType=NVARCHAR},
+      fDevPropertyName = #{record.fdevpropertyname,jdbcType=NVARCHAR},
+      fFgTypeCode = #{record.ffgtypecode,jdbcType=NVARCHAR},
+      fFgTypeName = #{record.ffgtypename,jdbcType=NVARCHAR},
+      fSellFrequencyCode = #{record.fsellfrequencycode,jdbcType=NVARCHAR},
+      fSellFrequencyName = #{record.fsellfrequencyname,jdbcType=NVARCHAR},
+      fSaleTypeCode = #{record.fsaletypecode,jdbcType=NVARCHAR},
+      fSaleTypeName = #{record.fsaletypename,jdbcType=NVARCHAR},
+      fMkCode = #{record.fmkcode,jdbcType=NVARCHAR},
+      ClothCode = #{record.clothcode,jdbcType=NVARCHAR},
+      ClothName = #{record.clothname,jdbcType=NVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.suibao.ssm.po.Goods" >
+    update Dim_Goods
+    <set >
+      <if test="fgoodscode != null" >
+        fGoodsCode = #{fgoodscode,jdbcType=VARCHAR},
+      </if>
+      <if test="fgoodsname != null" >
+        fGoodsName = #{fgoodsname,jdbcType=NVARCHAR},
+      </if>
+      <if test="fgoodstypeid != null" >
+        fGoodsTypeID = #{fgoodstypeid,jdbcType=NVARCHAR},
+      </if>
+      <if test="fgoodstype != null" >
+        fGoodsType = #{fgoodstype,jdbcType=NVARCHAR},
+      </if>
+      <if test="fbrandcode != null" >
+        fBrandCode = #{fbrandcode,jdbcType=VARCHAR},
+      </if>
+      <if test="fbrandname != null" >
+        fBrandName = #{fbrandname,jdbcType=NVARCHAR},
+      </if>
+      <if test="fsortcode != null" >
+        fSortCode = #{fsortcode,jdbcType=VARCHAR},
+      </if>
+      <if test="fsortname != null" >
+        fSortName = #{fsortname,jdbcType=NVARCHAR},
+      </if>
+      <if test="fgrpcode != null" >
+        fGrpCode = #{fgrpcode,jdbcType=VARCHAR},
+      </if>
+      <if test="fgrpname != null" >
+        fGrpName = #{fgrpname,jdbcType=NVARCHAR},
+      </if>
+      <if test="fkitcode != null" >
+        fKitCode = #{fkitcode,jdbcType=VARCHAR},
+      </if>
+      <if test="fkitname != null" >
+        fKitName = #{fkitname,jdbcType=NVARCHAR},
+      </if>
+      <if test="fstylecode != null" >
+        fStyleCode = #{fstylecode,jdbcType=VARCHAR},
+      </if>
+      <if test="fstylename != null" >
+        fStyleName = #{fstylename,jdbcType=NVARCHAR},
+      </if>
+      <if test="fclrcode != null" >
+        fClrCode = #{fclrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="fclrname != null" >
+        fClrName = #{fclrname,jdbcType=NVARCHAR},
+      </if>
+      <if test="frmqltcode != null" >
+        fRmQltCode = #{frmqltcode,jdbcType=VARCHAR},
+      </if>
+      <if test="frmqltname != null" >
+        fRmQltName = #{frmqltname,jdbcType=NVARCHAR},
+      </if>
+      <if test="fdesigncode != null" >
+        fDesignCode = #{fdesigncode,jdbcType=NVARCHAR},
+      </if>
+      <if test="fdesignname != null" >
+        fDesignName = #{fdesignname,jdbcType=NVARCHAR},
+      </if>
+      <if test="fdevpropertycode != null" >
+        fDevPropertyCode = #{fdevpropertycode,jdbcType=NVARCHAR},
+      </if>
+      <if test="fdevpropertyname != null" >
+        fDevPropertyName = #{fdevpropertyname,jdbcType=NVARCHAR},
+      </if>
+      <if test="ffgtypecode != null" >
+        fFgTypeCode = #{ffgtypecode,jdbcType=NVARCHAR},
+      </if>
+      <if test="ffgtypename != null" >
+        fFgTypeName = #{ffgtypename,jdbcType=NVARCHAR},
+      </if>
+      <if test="fsellfrequencycode != null" >
+        fSellFrequencyCode = #{fsellfrequencycode,jdbcType=NVARCHAR},
+      </if>
+      <if test="fsellfrequencyname != null" >
+        fSellFrequencyName = #{fsellfrequencyname,jdbcType=NVARCHAR},
+      </if>
+      <if test="fsaletypecode != null" >
+        fSaleTypeCode = #{fsaletypecode,jdbcType=NVARCHAR},
+      </if>
+      <if test="fsaletypename != null" >
+        fSaleTypeName = #{fsaletypename,jdbcType=NVARCHAR},
+      </if>
+      <if test="fmkcode != null" >
+        fMkCode = #{fmkcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="clothcode != null" >
+        ClothCode = #{clothcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="clothname != null" >
+        ClothName = #{clothname,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where fGoodsID = #{fgoodsid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.suibao.ssm.po.Goods" >
+    update Dim_Goods
+    set fGoodsCode = #{fgoodscode,jdbcType=VARCHAR},
+      fGoodsName = #{fgoodsname,jdbcType=NVARCHAR},
+      fGoodsTypeID = #{fgoodstypeid,jdbcType=NVARCHAR},
+      fGoodsType = #{fgoodstype,jdbcType=NVARCHAR},
+      fBrandCode = #{fbrandcode,jdbcType=VARCHAR},
+      fBrandName = #{fbrandname,jdbcType=NVARCHAR},
+      fSortCode = #{fsortcode,jdbcType=VARCHAR},
+      fSortName = #{fsortname,jdbcType=NVARCHAR},
+      fGrpCode = #{fgrpcode,jdbcType=VARCHAR},
+      fGrpName = #{fgrpname,jdbcType=NVARCHAR},
+      fKitCode = #{fkitcode,jdbcType=VARCHAR},
+      fKitName = #{fkitname,jdbcType=NVARCHAR},
+      fStyleCode = #{fstylecode,jdbcType=VARCHAR},
+      fStyleName = #{fstylename,jdbcType=NVARCHAR},
+      fClrCode = #{fclrcode,jdbcType=VARCHAR},
+      fClrName = #{fclrname,jdbcType=NVARCHAR},
+      fRmQltCode = #{frmqltcode,jdbcType=VARCHAR},
+      fRmQltName = #{frmqltname,jdbcType=NVARCHAR},
+      fDesignCode = #{fdesigncode,jdbcType=NVARCHAR},
+      fDesignName = #{fdesignname,jdbcType=NVARCHAR},
+      fDevPropertyCode = #{fdevpropertycode,jdbcType=NVARCHAR},
+      fDevPropertyName = #{fdevpropertyname,jdbcType=NVARCHAR},
+      fFgTypeCode = #{ffgtypecode,jdbcType=NVARCHAR},
+      fFgTypeName = #{ffgtypename,jdbcType=NVARCHAR},
+      fSellFrequencyCode = #{fsellfrequencycode,jdbcType=NVARCHAR},
+      fSellFrequencyName = #{fsellfrequencyname,jdbcType=NVARCHAR},
+      fSaleTypeCode = #{fsaletypecode,jdbcType=NVARCHAR},
+      fSaleTypeName = #{fsaletypename,jdbcType=NVARCHAR},
+      fMkCode = #{fmkcode,jdbcType=NVARCHAR},
+      ClothCode = #{clothcode,jdbcType=NVARCHAR},
+      ClothName = #{clothname,jdbcType=NVARCHAR}
+    where fGoodsID = #{fgoodsid,jdbcType=INTEGER}
+  </update>
+</mapper>
